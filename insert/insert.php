@@ -1,5 +1,5 @@
 <?php
-require_once '/search/database-access.php';
+require_once '/Applications/ServBay/www/testwebsite/search/database-access.php';
 
 $insert = '';
 $message = '';
@@ -39,8 +39,7 @@ if (isset($_SESSION['flash_message'])) {
         <input type="text" name="content" required placeholder="Content to insert.." value="<?php echo htmlspecialchars($insert); ?>">
         <button type="submit">Insert</button>
     </form>
-    <?php endif; ?>
-    <button onclick="gotoLink('..')" type="button" id="button1">Back to home page</button>
+    <button onclick="gotoLink('../index.html')" type="button" id="button1">Back to home page</button>
     <script type="text/javascript" src="/button1.js"></script>
 </body>
 </html>

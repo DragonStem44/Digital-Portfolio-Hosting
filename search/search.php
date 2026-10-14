@@ -41,7 +41,7 @@ if (isset($_GET['query']) && !empty(trim($_GET["query"]))){
         <?php endforeach; ?>
     <?php endif; ?>
     <br>
-    <button onclick="gotoLink('..')" type="button" id="button1">Back to home page</button>
+    <button onclick="gotoLink('../index.html')" type="button" id="button1">Back to home page</button>
     <script type="text/javascript" src="../../button1.js"></script>
 </body>
 </html>
