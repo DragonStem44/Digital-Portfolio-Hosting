@@ -1,8 +1,14 @@
 <?php
 require_once '/Applications/ServBay/www/testwebsite/search/database-access.php';
 
-
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start([
+    'cookie_lifetime' => 0,
+    'cookie_secure'   => true,
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Strict'
+]);
+}
 $dir = '';
 $message = '';
 $pagecontent = '';
@@ -17,10 +23,11 @@ if (isset($_POST['dirName']) && !empty(trim($_POST["dirName"]))){
                         "<head>\n".
                         "   <meta charset'UTF-8'>\n" .
                         "   <title>" . $stripped_dir  . "</title>\n" .
-                        "   <link rel='stylesheet' href='/style/template1.css'>\n" .
+                        "   <link rel='stylesheet' href='../../style/template1.css'>\n" .
                         "</head>\n" .
                         "<body contenteditable='true'>\n" .
                         "   <h1 id='portfolio-title'>Welcome to the " . $trimmed_dir . " page!</h1>\n" .
+                        "   <p id='portfolio-content'>Content will go here</p>\n" .
                         "</body>";
         if ($stripped_dir):
             $_SESSION['stripped_dir'] = $stripped_dir;
@@ -51,11 +58,11 @@ if (isset($_SESSION['flash_message'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Website Search</title>
-    <link rel="stylesheet" href="/create/create.css">
+    <title>Create Portfolio</title>
 </head>
 <body>
     <h1>Create Portfolio</h1>
+    <p>The name entered below will be the name used to search for this portfolio. IT CANNOT BE CHANGED ONCE CREATED.</p>
     <?php if ($message): ?>
         <?php echo $message; ?>
     <?php endif; ?>
@@ -67,7 +74,23 @@ if (isset($_SESSION['flash_message'])) {
         <?php echo '<button onclick="gotoLink(\'../portfolios/' . $_SESSION['stripped_dir'] . '/' . $_SESSION['stripped_dir'] . '_portfolio.html\')" type="button" id="portfolio-button">Go to the \'' . $_SESSION['stripped_dir'] . '\' portfolio</button>'; ?>
         <?php unset($_SESSION['stripped_dir']); ?>
     <?php endif; ?>
-    <button onclick="gotoLink('../index.html')" type="button" id="button1">Back to home page</button>
+
+
+    <div hidden="true" id="user-prof" data-user-id="<?php echo htmlspecialchars($_SESSION['user_id']); ?>" data-is-logged="<?php echo htmlspecialchars($_SESSION['is_logged']); ?>"></div>
+    <button onclick="gotoLink('index.php')" type="button" id="button1">Signup</button>
+
+    <button onclick="gotoLink('search/search.php')" type="button" id="button2">Search</button>
+
+    <button onclick="const usrEl = document.getElementById('user-prof');
+    const usrLogged = usrEl.dataset.isLogged;
+    if (usrLogged) {
+      gotoLink('insert/insert.php')
+    }" type="button" id="button3">Insert into DB</button>
+
+    <button onclick="gotoLink('signup/signup.php')" type="button" id="button5">Signup</button>
+
+    <button onclick="gotoLink('login/login.php')" type="button" id="button6">Login</button>
+
     <script type="text/javascript" src="../button1.js"></script>
 </body>
 </html>

@@ -8,8 +8,8 @@ $result_order = 0;
 
 if (isset($_GET['query']) && !empty(trim($_GET["query"]))){
     $search = trim($_GET['query']);
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM test WHERE content LIKE :query");
+    global $pdo_folio;
+    $stmt = $pdo_folio->prepare("SELECT * FROM test WHERE content LIKE :query");
     $stmt->execute(['query' => '%' . $search . '%']);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -41,7 +41,29 @@ if (isset($_GET['query']) && !empty(trim($_GET["query"]))){
         <?php endforeach; ?>
     <?php endif; ?>
     <br>
-    <button onclick="gotoLink('../index.html')" type="button" id="button1">Back to home page</button>
+
+    <div hidden="true" id="user-prof" data-user-id="<?php echo htmlspecialchars($_SESSION['user_id']); ?>" data-is-logged="<?php echo htmlspecialchars($_SESSION['is_logged']); ?>"></div>
+
+    <p>Link buttons below</p>
+    <div id="links">
+        <button onclick="gotoLink('/index.php')" type="button" id="button1">Back to home page</button>
+
+        <button onclick="const usrEl = document.getElementById('user-prof');
+        const usrLogged = usrEl.dataset.isLogged;
+        if (usrLogged) {
+          gotoLink('/insert/insert.php')
+        }" type="button" id="button3">Insert into DB</button>
+
+        <button onclick="const usrEl = document.getElementById('user-prof');
+        const usrLogged = usrEl.dataset.isLogged;
+        if (usrLogged) {
+          gotoLink('/create/create.php')
+        }')" type="button" id="button4">Create a Portfolio</button>
+
+        <button onclick="gotoLink('/signup/signup.php')" type="button" id="button5">Signup</button>
+
+        <button onclick="gotoLink('/login/login.php')" type="button" id="button5">Login</button>
+    </div>
     <script type="text/javascript" src="../../button1.js"></script>
 </body>
 </html>
