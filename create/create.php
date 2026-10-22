@@ -62,6 +62,9 @@ if (isset($_SESSION['flash_message'])) {
 </head>
 <body>
     <h1>Create Portfolio</h1>
+    <?php if (isset($_SESSION['user'])): ?>
+        <?php echo "<p id='user_display'>Logged in as " . $_SESSION['user'] . ".</p>"; ?>
+    <?php endif; ?>
     <p>The name entered below will be the name used to search for this portfolio. IT CANNOT BE CHANGED ONCE CREATED.</p>
     <?php if ($message): ?>
         <?php echo $message; ?>
@@ -76,20 +79,24 @@ if (isset($_SESSION['flash_message'])) {
     <?php endif; ?>
 
 
-    <div hidden="true" id="user-prof" data-user-id="<?php echo htmlspecialchars($_SESSION['user_id']); ?>" data-is-logged="<?php echo htmlspecialchars($_SESSION['is_logged']); ?>"></div>
+    <div hidden="true" id="user-prof" data-user-id="<?php echo htmlspecialchars($_SESSION['uuid']); ?>" data-is-logged="<?php echo htmlspecialchars($_SESSION['is_logged']); ?>"></div>
+
+
+    <div id="links">
     <button onclick="gotoLink('index.php')" type="button" id="button1">Signup</button>
 
     <button onclick="gotoLink('search/search.php')" type="button" id="button2">Search</button>
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged) {
+    if (usrLogged === "true") {
       gotoLink('insert/insert.php')
     }" type="button" id="button3">Insert into DB</button>
 
     <button onclick="gotoLink('signup/signup.php')" type="button" id="button5">Signup</button>
 
     <button onclick="gotoLink('login/login.php')" type="button" id="button6">Login</button>
+    </div>
 
     <script type="text/javascript" src="../button1.js"></script>
 </body>
