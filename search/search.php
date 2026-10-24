@@ -53,13 +53,13 @@ if (isset($_GET['query']) && !empty(trim($_GET["query"]))){
 
         <button onclick="const usrEl = document.getElementById('user-prof');
         const usrLogged = usrEl.dataset.isLogged;
-        if (usrLogged === "true") {
+        if (usrLogged === 'true') {
           gotoLink('/insert/insert.php')
         }" type="button" id="button3">Insert into DB</button>
 
         <button onclick="const usrEl = document.getElementById('user-prof');
         const usrLogged = usrEl.dataset.isLogged;
-        if (usrLogged === "true") {
+        if (usrLogged === 'true') {
           gotoLink('/create/create.php')
         }')" type="button" id="button4">Create a Portfolio</button>
 

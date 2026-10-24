@@ -20,12 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user && password_verify($plain_password, $user['password'])) {
         session_regenerate_id(true);
-
+        echo "success!";
         $_SESSION['user'] = $username;
         $_SESSION['uuid'] = $user['uuid'];
         $_SESSION['is_logged'] = "true";
     } else {
         $error = "Invalid email or password.";
+        echo "error!";
     }
 }
 $username = '';
@@ -63,13 +64,13 @@ $username = '';
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    if (usrLogged === 'true') {
       gotoLink('/insert/insert.php')
     }" type="button" id="button3">Insert into DB</button>
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    if (usrLogged === 'true') {
       gotoLink('/create/create.php')
     }')" type="button" id="button4">Create a Portfolio</button>
 

@@ -89,7 +89,7 @@ if (isset($_SESSION['flash_message'])) {
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    if (usrLogged === 'true') {
       gotoLink('insert/insert.php')
     }" type="button" id="button3">Insert into DB</button>
 

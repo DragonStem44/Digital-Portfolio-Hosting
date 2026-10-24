@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $plain_password = $_POST['password'];
 
     if (empty($username) || empty($plain_password)) {
-        die("Please fill in all the fields.")
+        die("Please fill in all the fields.");
     }
     if (strlen($username) > 24 || strlen($plain_password) > 24) {
         die("Error: Username and password must be 24 characters or less.");
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (preg_match('/[^\x20-\x7E]/', $plain_password)) {
         die("Error: Password can only contain standard alphanumeric characters and basic keyboard symbols.");
     }
-    $hashed_password = password_hash($plain_password, PASSSWORD_BCRYPT);
+    $hashed_password = password_hash($plain_password, PASSWORD_BCRYPT);
 
     try {
         $stmt = $pdo->prepare("INSERT INTO users (uuid, username, password) VALUES (UUID_TO_BIN(UUID()), :username, :password)");
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Registration successful.";
     } catch (PDOException $e) {
 
-        if ($e->getCode() == 23000) { // Error code for duplicate entry
+        if ($e->getCode() == 23000) {
             die("Username already exists. Did you mean to log in?");
         }
             die("Database error: " . $e->getMessage());
@@ -81,15 +81,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    console.log('testing');
+    if (usrLogged === 'true') {
       gotoLink('/insert/insert.php')
+      console.log('true');
     }" type="button" id="button3">Insert into DB</button>
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    if (usrLogged === 'true') {
       gotoLink('/create/create.php')
-    }')" type="button" id="button4">Create a Portfolio</button>
+    }" type="button" id="button4">Create a Portfolio</button>
 
     <button onclick="gotoLink('/login/login.php')" type="button" id="button5">Login</button>
     </div>

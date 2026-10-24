@@ -56,7 +56,7 @@ if (isset($_SESSION['flash_message'])) {
 
     <button onclick="const usrEl = document.getElementById('user-prof');
     const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === "true") {
+    if (usrLogged === 'true') {
       gotoLink('/create/create.php')
     }')" type="button" id="button4">Create a Portfolio</button>
 
