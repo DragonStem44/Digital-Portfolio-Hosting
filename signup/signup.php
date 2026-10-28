@@ -94,6 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }" type="button" id="button4">Create a Portfolio</button>
 
     <button onclick="gotoLink('/login/login.php')" type="button" id="button5">Login</button>
+
+    <button onclick="const usrEl = document.getElementById('user-prof');
+    const usrLogged = usrEl.dataset.isLogged;
+    if (usrLogged === 'true') {
+      gotoLink('/logout/logout.php')
+    }" type="button" id="button6]5">Logout</button>
     </div>
 
     <script type="text/javascript" src="/button1.js"></script>

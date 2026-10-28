@@ -72,9 +72,15 @@ $username = '';
     const usrLogged = usrEl.dataset.isLogged;
     if (usrLogged === 'true') {
       gotoLink('/create/create.php')
-    }')" type="button" id="button4">Create a Portfolio</button>
+    }" type="button" id="button4">Create a Portfolio</button>
 
     <button onclick="gotoLink('/signup/signup.php')" type="button" id="button5">Signup</button>
+
+    <button onclick="const usrEl = document.getElementById('user-prof');
+    const usrLogged = usrEl.dataset.isLogged;
+    if (usrLogged === 'true') {
+      gotoLink('/logout/logout.php')
+    }" type="button" id="button5">Logout</button>
     </div>
 
     <script type="text/javascript" src="/button1.js"></script>

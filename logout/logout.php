@@ -8,7 +8,6 @@ if (session_status() === PHP_SESSION_NONE) {
         'cookie_httponly' => true,
         'cookie_samesite' => 'Strict'
     ]);
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
         $_SESSION = array();
         if (ini_get("session.use_cookies")) {
@@ -39,7 +38,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Logout</title>
 </head>
 <body>
     <h1>Logout</h1>
@@ -70,7 +69,7 @@ if (session_status() === PHP_SESSION_NONE) {
     const usrLogged = usrEl.dataset.isLogged;
     if (usrLogged === 'true') {
       gotoLink('/create/create.php')
-    }')" type="button" id="button4">Create a Portfolio</button>
+    }" type="button" id="button4">Create a Portfolio</button>
 
     <button onclick="gotoLink('/signup/signup.php')" type="button" id="button5">Signup</button>
     </div>

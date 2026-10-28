@@ -11,6 +11,9 @@ if (session_status() === PHP_SESSION_NONE) {
     'cookie_samesite' => 'Strict'
 ]);
 }
+?>
+<?php if ($_SESSION['is_logged'] === "true"): ?>
+<?php
 if (isset($_POST['content']) && !empty(trim($_POST["content"]))){
     $trimmed_content = trim($_POST['content']);
     if (!empty($trimmed_content)) {
@@ -58,13 +61,22 @@ if (isset($_SESSION['flash_message'])) {
     const usrLogged = usrEl.dataset.isLogged;
     if (usrLogged === 'true') {
       gotoLink('/create/create.php')
-    }')" type="button" id="button4">Create a Portfolio</button>
+    }" type="button" id="button4">Create a Portfolio</button>
 
     <button onclick="gotoLink('/signup/signup.php')" type="button" id="button5">Signup</button>
 
-    <button onclick="gotoLink('login/login.php')" type="button" id="button6">Login</button>
+    <button onclick="gotoLink('/login/login.php')" type="button" id="button6">Login</button>
+
+        <button onclick="const usrEl = document.getElementById('user-prof');
+        const usrLogged = usrEl.dataset.isLogged;
+        if (usrLogged === 'true') {
+          gotoLink('/logout/logout.php')
+        }" type="button" id="button5">Logout</button>
     </div>
 
     <script type="text/javascript" src="/button1.js"></script>
+<?php else: ?>
+    <?php echo "You are not logged in."; ?>
+<?php endif; ?>
 </body>
 </html>
