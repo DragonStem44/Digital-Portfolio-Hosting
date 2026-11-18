@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../search/database-access.php';
+require_once '../search/database-access.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start([
@@ -10,79 +10,84 @@ if (session_status() === PHP_SESSION_NONE) {
     ]);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $plain_password = $_POST['password'];
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT uuid, password FROM users WHERE username = :username");
-    $stmt->execute(['username' => $username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+$error = '';
 
-    if ($user && password_verify($plain_password, $user['password'])) {
-        session_regenerate_id(true);
-        echo "success!";
-        $_SESSION['user'] = $username;
-        $_SESSION['uuid'] = $user['uuid'];
-        $_SESSION['is_logged'] = "true";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    if (!empty($username) && !empty($password)) {
+        try {
+            global $pdo;
+            $stmt = $pdo->prepare("SELECT uuid, username, password FROM users WHERE username = :username LIMIT 1");
+            $stmt->execute(['username' => $username]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
+                session_regenerate_id(true);
+
+                $_SESSION['user'] = $user['username'];
+                $_SESSION['uuid'] = $user['uuid'];
+                $_SESSION['is_logged'] = 'true';
+
+                header('Location: /index.php');
+                exit();
+            } else {
+                $error = 'Invalid username or password.';
+            }
+        } catch (PDOException $e) {
+            $error = 'Database error occurred.';
+        }
     } else {
-        $error = "Invalid email or password.";
-        echo "error!";
+        $error = 'Please fill in all fields.';
     }
 }
-$username = '';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/login/login.css">
 </head>
 <body>
-    <h1>Login</h1>
-    <p>Passwords and usernames are CASE SENSITIVE!</p>
-    <?php if (isset($_SESSION['user'])): ?>
-        <?php echo "<p id='user_display'>Logged in as " . $_SESSION['user'] . ".</p>"; ?>
-    <?php endif; ?>
-    <!-- Login form -->
-    <form method="POST">
-        <input type="text" id="username" name="username" placeholder="Username:" required maxlength="24">
-        <input type="password" id="password" name="password" placeholder="Password:" maxlength="24" minlength="8" required>
-        <button type="submit">Login</button>
+    <!-- Top Bar containing title and navigation links -->
+    <header id="top-bar">
+        <h1 id="top-title">Login</h1>
+        <div id="links">
+            <button onclick="gotoLink('/index.php')" type="button" id="button1">Back to home</button>
+            <button onclick="gotoLink('/search/search.php')" type="button" id="button2">Search</button>
+            <button onclick="gotoLink('/signup/signup.php')" type="button" id="button3">Signup</button>
+        </div>
+    </header>
+
+    <form class="form" action="/login/login.php" method="POST">
+        <?php if (!empty($error)): ?>
+            <p style="color: #f87171; margin-top: 0;"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+        <?php endif; ?>
+
+        <div class="password-wrapper">
+            <input type="text" id="username" name="username" required placeholder="Username" autocomplete="off">
+
+            <input type="password" id="password" name="password" required placeholder="Password">
+            <button type="button" id="show-password">Show</button>
+        </div>
+        <script>
+          const passwordInput = document.getElementById('password');
+          const toggleButton = document.getElementById('show-password');
+
+          toggleButton.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+
+            passwordInput.type = isPassword ? 'text' : 'password';
+
+            toggleButton.textContent = isPassword ? 'Hide' : 'Show';
+          });
+        </script>
+        <button id="login" type="submit">Login</button>
     </form>
-    <!-- Login form end -->
-    <div hidden="true" id="user-prof" data-user-id="<?php echo htmlspecialchars($_SESSION['uuid']); ?>" data-is-logged="<?php echo htmlspecialchars($_SESSION['is_logged']); ?>"></div>
 
-    <p>Link buttons below</p>
-
-
-    <div id="links">
-    <button onclick="gotoLink('/index.php')" type="button" id="button1">Back to home page</button>
-
-    <button onclick="gotoLink('/search/search.php')" type="button" id="button2">Search</button>
-
-    <button onclick="const usrEl = document.getElementById('user-prof');
-    const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === 'true') {
-      gotoLink('/insert/insert.php')
-    }" type="button" id="button3">Insert into DB</button>
-
-    <button onclick="const usrEl = document.getElementById('user-prof');
-    const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === 'true') {
-      gotoLink('/create/create.php')
-    }" type="button" id="button4">Create a Portfolio</button>
-
-    <button onclick="gotoLink('/signup/signup.php')" type="button" id="button5">Signup</button>
-
-    <button onclick="const usrEl = document.getElementById('user-prof');
-    const usrLogged = usrEl.dataset.isLogged;
-    if (usrLogged === 'true') {
-      gotoLink('/logout/logout.php')
-    }" type="button" id="button5">Logout</button>
-    </div>
-
-    <script type="text/javascript" src="/button1.js"></script>
+    <script type="text/javascript" src="../button1.js"></script>
 </body>
 </html>

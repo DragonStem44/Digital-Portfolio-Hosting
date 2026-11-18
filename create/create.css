@@ -1,0 +1,128 @@
+body {
+    background-color: #0B0F19;
+    place-items: center;
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body * {
+    font-family: 'Montserrat', sans-serif;
+    color: #F8FAFC;
+}
+
+#top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1E293B;
+    border-bottom: 3px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+#top-title {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+#links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    position: static;
+}
+
+#links * {
+    background-color: #1e293b;
+    border: 2px solid #475569;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.form {
+    background-color: #1e293b;
+    border: 2px solid #334155;
+    border-radius: 6px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.form input {
+    background-color: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 4px;
+    padding: 8px;
+    color: #F8FAFC;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form button[type="submit"], #portfolio-button {
+    background-color: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #38bdf8;
+}
+
+.form button[type="submit"]:hover, #portfolio-button:hover {
+    background-color: #334155;
+}
+
+#user-display {
+    border: 2px solid #334155;
+    background-color: #1e293b;
+    border-radius: 5px;
+    padding: 4px 8px;
+    margin: 0px;
+    position: fixed;
+    right: 8px;
+    top: 75px;
+    z-index: 999;
+}
+
+#button1:hover {
+    background-color: #334155;
+}
+#button2:hover {
+    background-color: #334155;
+}
+#button3:hover {
+    background-color: #334155;
+}
+#button4:hover {
+    background-color: #334155;
+}
+#button5:hover {
+    background-color: #334155;
+}

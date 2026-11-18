@@ -128,5 +128,3 @@ High Tech High North County students interested in creating a digital portfolio 
 
 + Main programmer
   - Sam H
-+ Consultant
-  - Franklin V

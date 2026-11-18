@@ -1,2 +1,4 @@
 *.DS_Store
 portfolios/
+t*.php
+*.gitignore
