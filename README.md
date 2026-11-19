@@ -58,7 +58,7 @@ High Tech High North County students interested in creating a digital portfolio 
 
 + HTML creates the structure of each and every template.
 + CSS provides the theme and visual appearance of each template.
-+ Javascript helps each page feel alive, with buttons that respond to input, etc.
++ Minimal javascript, only around 0.2% of the codebase!
 
 ### Backend
 
@@ -68,7 +68,7 @@ High Tech High North County students interested in creating a digital portfolio 
 
 ### Database
 
-+ The database stores the user's password and email along with a unique ID
++ The database stores the user's hashed password and email along with a unique ID
 + A seperate table stores the names of portfolios, the associated user and a unique ID
 
 ### Tools (Development)
